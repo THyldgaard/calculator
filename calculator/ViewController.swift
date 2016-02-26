@@ -20,8 +20,10 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    
     @IBOutlet weak var sumLabel: UILabel!
     
+
     @IBOutlet weak var acButton: UIButton!
     @IBOutlet weak var plusMinusButton: UIButton!
     @IBOutlet weak var procentButton: UIButton!
@@ -57,7 +59,7 @@ class ViewController: UIViewController {
     // AC clear everything
     // C clear previous number, when C x 3 == AC
     // positiv or negativ number sign
-    
+
 
 }
 
