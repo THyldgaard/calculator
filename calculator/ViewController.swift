@@ -20,6 +20,7 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    var sum = 0.0
     
     @IBOutlet weak var sumLabel: UILabel!
     
@@ -59,7 +60,24 @@ class ViewController: UIViewController {
     // AC clear everything
     // C clear previous number, when C x 3 == AC
     // positiv or negativ number sign
-
+    
+    func onZeroButtonPressed(sender: UIButton!) -> Double { return 0 }
+    func onOneButtonPressed(sender: UIButton!) -> Double { return 1 }
+    func onTwoButtonPressed(sender: UIButton!) -> Double { return 2 }
+    func onThreeButtonPressed(sender: UIButton!) -> Double { return 3 }
+    func onFourButtonPressed(sender: UIButton!) -> Double { return 4 }
+    func onFiveButtonPressed(sender: UIButton!) -> Double { return 5 }
+    func onSixButtonPressed(sender: UIButton!) -> Double { return 6 }
+    func onSevenButtonPressed(sender: UIButton!) -> Double { return 7 }
+    func onEightButtonPressed(sender: UIButton!) -> Double { return 8 }
+    func onNineButtonPressed(sender: UIButton!) -> Double { return 9 }
+    
+    func onPlusMinusButtonPressed(sender: UIButton!) {
+        if sumLabel.text != nil && sumLabel != "" {
+            sum *= -1
+        }
+    }
+    
 
 }
 
