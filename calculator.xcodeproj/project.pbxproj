@@ -12,6 +12,7 @@
 		4256BC0F1C7FB624004EE0EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4256BC0D1C7FB624004EE0EB /* Main.storyboard */; };
 		4256BC111C7FB624004EE0EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4256BC101C7FB624004EE0EB /* Assets.xcassets */; };
 		4256BC141C7FB624004EE0EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4256BC121C7FB624004EE0EB /* LaunchScreen.storyboard */; };
+		42B2BB091C87312200B7CBAA /* btnpress.wav in Resources */ = {isa = PBXBuildFile; fileRef = 42B2BB081C87312200B7CBAA /* btnpress.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		4256BC101C7FB624004EE0EB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4256BC131C7FB624004EE0EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4256BC151C7FB624004EE0EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		42B2BB081C87312200B7CBAA /* btnpress.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = btnpress.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 		4256BC081C7FB624004EE0EB /* calculator */ = {
 			isa = PBXGroup;
 			children = (
+				42B2BB081C87312200B7CBAA /* btnpress.wav */,
 				4256BC091C7FB624004EE0EB /* AppDelegate.swift */,
 				4256BC0B1C7FB624004EE0EB /* ViewController.swift */,
 				4256BC0D1C7FB624004EE0EB /* Main.storyboard */,
@@ -124,6 +127,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4256BC141C7FB624004EE0EB /* LaunchScreen.storyboard in Resources */,
+				42B2BB091C87312200B7CBAA /* btnpress.wav in Resources */,
 				4256BC111C7FB624004EE0EB /* Assets.xcassets in Resources */,
 				4256BC0F1C7FB624004EE0EB /* Main.storyboard in Resources */,
 			);

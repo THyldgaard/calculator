@@ -7,77 +7,100 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+    enum Operation: String {
+        case Multiply = "x"
+        case Divide = "/"
+        case Subtract = "-"
+        case Addition = "+"
+        case Equals = "="
+        case Empty = "Empty"
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-    var sum = 0.0
     
     @IBOutlet weak var sumLabel: UILabel!
-    
-
     @IBOutlet weak var acButton: UIButton!
-    @IBOutlet weak var plusMinusButton: UIButton!
-    @IBOutlet weak var procentButton: UIButton!
-    @IBOutlet weak var multiplyButton: UIButton!
     
-    @IBOutlet weak var sevenButton: UIButton!
-    @IBOutlet weak var eightButton: UIButton!
-    @IBOutlet weak var nineButton: UIButton!
-    @IBOutlet weak var divideButton: UIButton!
+    var btnSound: AVAudioPlayer!
     
-    @IBOutlet weak var fourButton: UIButton!
-    @IBOutlet weak var fiveButton: UIButton!
-    @IBOutlet weak var sixButton: UIButton!
-    @IBOutlet weak var minusButton: UIButton!
+    var runningNumber = ""
+    var leftValue = ""
+    var rigthValue = ""
+    var currentOperator: Operation = Operation.Empty
     
-    @IBOutlet weak var oneButton: UIButton!
-    @IBOutlet weak var twoButton: UIButton!
-    @IBOutlet weak var threeButton: UIButton!
-    @IBOutlet weak var plusButton: UIButton!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let path = NSBundle.mainBundle().pathForResource("btnpress", ofType: "wav")
+        let soundUrl = NSURL(fileURLWithPath: path!)
+        
+        do {
+            try btnSound = AVAudioPlayer(contentsOfURL: soundUrl)
+            btnSound.prepareToPlay()
+            
+        } catch let err as NSError {
+            print(err.debugDescription)
+        }
+        
+    }
     
-    @IBOutlet weak var deleteButton: UIButton!
-    @IBOutlet weak var zeroButton: UIButton!
-    @IBOutlet weak var commaButton: UIButton!
-    @IBOutlet weak var equalButton: UIButton!
+    @IBAction func numberPressed(btn: UIButton!) {
+        btnSound.play()
+        runningNumber += "\(btn.tag)"
+        sumLabel.text = runningNumber
+        acButton.setTitle("C", forState: UIControlState.Normal)
+
+    }
     
-    // update label
-    // delete previous input
-    // addition
-    // subtraction
-    // division
-    // multiplication
-    // times hundred percent
-    // AC clear everything
-    // C clear previous number, when C x 3 == AC
-    // positiv or negativ number sign
+    @IBAction func onMultiplyPressed(sender: AnyObject) {
+        
+    }
+
+    @IBAction func onDividePressed(sender: AnyObject) {
+    }
+   
+    @IBAction func onSubtractPressed(sender: AnyObject) {
+    }
     
-    func onZeroButtonPressed(sender: UIButton!) -> Double { return 0 }
-    func onOneButtonPressed(sender: UIButton!) -> Double { return 1 }
-    func onTwoButtonPressed(sender: UIButton!) -> Double { return 2 }
-    func onThreeButtonPressed(sender: UIButton!) -> Double { return 3 }
-    func onFourButtonPressed(sender: UIButton!) -> Double { return 4 }
-    func onFiveButtonPressed(sender: UIButton!) -> Double { return 5 }
-    func onSixButtonPressed(sender: UIButton!) -> Double { return 6 }
-    func onSevenButtonPressed(sender: UIButton!) -> Double { return 7 }
-    func onEightButtonPressed(sender: UIButton!) -> Double { return 8 }
-    func onNineButtonPressed(sender: UIButton!) -> Double { return 9 }
+    @IBAction func onAdditionPressed(sender: AnyObject) {
+    }
+   
+    @IBAction func onEqualPressed(sender: AnyObject) {
+    }
     
-    func onPlusMinusButtonPressed(sender: UIButton!) {
-        if sumLabel.text != nil && sumLabel != "" {
-            sum *= -1
+    @IBAction func onProcentagePressed(sender: AnyObject) {
+    }
+
+    @IBAction func onChangeSignPressed(sender: AnyObject) {
+    }
+    
+    @IBAction func onAllClearPressed(sender: AnyObject) {
+        
+        if runningNumber != "0" && rigthValue != "0" && leftValue != "0" {
+            acButton.setTitle("C", forState: UIControlState.Normal)
+            runningNumber = "0"
+            sumLabel.text = runningNumber
+        } else {
+            runningNumber = ""
+            sumLabel.text = "0"
+            leftValue = ""
+            rigthValue = ""
+            currentOperator = Operation.Empty
+            acButton.setTitle("AC", forState: UIControlState.Normal)
+
         }
     }
     
-
+    @IBAction func onDeletePressed(sender: AnyObject) {
+        runningNumber.removeAtIndex(runningNumber.endIndex.predecessor())
+        sumLabel.text = runningNumber
+    }
+    
+    @IBAction func onCommaDoubleValuePressed(sender: AnyObject) {
+    }
+    
+    
 }
 
