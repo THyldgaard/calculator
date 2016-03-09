@@ -16,7 +16,10 @@ class ViewController: UIViewController {
         case Divide = "/"
         case Subtract = "-"
         case Addition = "+"
-        case Equals = "="
+        case Procentage = "%"
+        case Opposite = "+ / -"
+        case Equal = "="
+        case Comma = ","
         case Empty = "Empty"
     }
     
@@ -29,10 +32,11 @@ class ViewController: UIViewController {
     var leftValue = ""
     var rigthValue = ""
     var currentOperator: Operation = Operation.Empty
+    var result = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let path = NSBundle.mainBundle().pathForResource("btnpress", ofType: "wav")
         let soundUrl = NSURL(fileURLWithPath: path!)
         
@@ -47,58 +51,140 @@ class ViewController: UIViewController {
     }
     
     @IBAction func numberPressed(btn: UIButton!) {
-        btnSound.play()
+        playButtonSound()
         runningNumber += "\(btn.tag)"
-        sumLabel.text = runningNumber
-        acButton.setTitle("C", forState: UIControlState.Normal)
-
+        updateSumLabel(runningNumber)
+        changeACButtonText("C")
+        
     }
     
     @IBAction func onMultiplyPressed(sender: AnyObject) {
+        processOperation(Operation.Multiply)
         
     }
 
     @IBAction func onDividePressed(sender: AnyObject) {
+        processOperation(Operation.Divide)
+        
     }
    
     @IBAction func onSubtractPressed(sender: AnyObject) {
+        processOperation(Operation.Subtract)
+        
     }
     
     @IBAction func onAdditionPressed(sender: AnyObject) {
+        processOperation(Operation.Addition)
+        
     }
    
     @IBAction func onEqualPressed(sender: AnyObject) {
+        processOperation(Operation.Equal)
+        // processOperation(currentOperator)
+        
     }
     
     @IBAction func onProcentagePressed(sender: AnyObject) {
+        processOperation(Operation.Procentage)
+        
     }
 
     @IBAction func onChangeSignPressed(sender: AnyObject) {
+        processOperation(Operation.Opposite)
+        
     }
     
     @IBAction func onAllClearPressed(sender: AnyObject) {
-        
-        if runningNumber != "0" && rigthValue != "0" && leftValue != "0" {
-            acButton.setTitle("C", forState: UIControlState.Normal)
-            runningNumber = "0"
-            sumLabel.text = runningNumber
-        } else {
-            runningNumber = ""
-            sumLabel.text = "0"
-            leftValue = ""
-            rigthValue = ""
-            currentOperator = Operation.Empty
-            acButton.setTitle("AC", forState: UIControlState.Normal)
-
-        }
+        runningNumber = ""
+        leftValue = ""
+        rigthValue = ""
+        currentOperator = Operation.Empty
+        zeroUpdateSumLabel()
     }
     
     @IBAction func onDeletePressed(sender: AnyObject) {
-        runningNumber.removeAtIndex(runningNumber.endIndex.predecessor())
-        sumLabel.text = runningNumber
+        if (runningNumber != "" && runningNumber.characters.count > 1) {
+            runningNumber.removeAtIndex(runningNumber.endIndex.predecessor())
+            updateSumLabel(runningNumber)
+        } else {
+            if runningNumber.characters.count == 1 {
+                runningNumber.removeAtIndex(runningNumber.endIndex.predecessor())
+            }
+            zeroUpdateSumLabel()
+        }
+    
     }
     
     @IBAction func onCommaDoubleValuePressed(sender: AnyObject) {
+        processOperation(Operation.Comma)
+    }
+    
+    func processOperation(op: Operation) {
+        playButtonSound()
+        
+        if currentOperator != Operation.Empty {
+            if runningNumber != "" {
+                rigthValue = runningNumber
+                runningNumber = ""
+                
+                if currentOperator == Operation.Multiply {
+                    result = "\(Int(leftValue)! * Int(rigthValue)!)"
+                } else if currentOperator == Operation.Divide {
+                    result = "\(Double(leftValue)! / Double(rigthValue)!)"
+                } else if currentOperator == Operation.Subtract {
+                    result = "\(Int(leftValue)! - Int(rigthValue)!)"
+                } else if currentOperator == Operation.Addition {
+                    result = "\(Int(leftValue)! + Int(rigthValue)!)"
+                } else if currentOperator == Operation.Comma {
+                    result = "\(Double(rigthValue)!)"
+                }
+                
+            } else if runningNumber == "" {
+                if currentOperator == Operation.Opposite {
+                    result = "\(Int(leftValue)! * Int("-1")!)"
+                } else if currentOperator == Operation.Equal {
+                    result = "\(Int(leftValue)!)"
+                } else if currentOperator == Operation.Procentage {
+                    result = "\((Double(leftValue)! / 100))"
+                }
+            }
+            
+            leftValue = result
+            result = ""
+            updateSumLabel(leftValue)
+            currentOperator = op
+            
+        } else {
+            // first time an operator is pressed
+            leftValue = runningNumber
+            runningNumber = ""
+            currentOperator = op
+        }
+        
+    }
+    
+    func playButtonSound() {
+        if btnSound.playing {
+            btnSound.stop()
+        }
+        
+        btnSound.play()
+        
+    }
+    
+    func updateSumLabel(sumValue: String) {
+        sumLabel.text = sumValue
+        
+    }
+    
+    func changeACButtonText(txt: String) {
+        acButton.setTitle(txt, forState: UIControlState.Normal)
+
+    }
+    
+    func zeroUpdateSumLabel() {
+        updateSumLabel("0")
+        changeACButtonText("AC")
     }
     
     
