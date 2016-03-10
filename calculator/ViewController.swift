@@ -50,6 +50,10 @@ class ViewController: UIViewController {
         
     }
     
+    override func preferredStatusBarStyle() -> UIStatusBarStyle {
+        return .LightContent
+    }
+    
     @IBAction func numberPressed(btn: UIButton!) {
         playButtonSound()
         runningNumber += "\(btn.tag)"
@@ -79,8 +83,7 @@ class ViewController: UIViewController {
     }
    
     @IBAction func onEqualPressed(sender: AnyObject) {
-        processOperation(Operation.Equal)
-        // processOperation(currentOperator)
+        processOperation(currentOperator)
         
     }
     
@@ -95,6 +98,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onAllClearPressed(sender: AnyObject) {
+        playButtonSound()
         runningNumber = ""
         leftValue = ""
         rigthValue = ""
@@ -103,6 +107,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onDeletePressed(sender: AnyObject) {
+        playButtonSound()
         if (runningNumber != "" && runningNumber.characters.count > 1) {
             runningNumber.removeAtIndex(runningNumber.endIndex.predecessor())
             updateSumLabel(runningNumber)
@@ -116,7 +121,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func onCommaDoubleValuePressed(sender: AnyObject) {
-        processOperation(Operation.Comma)
+        playButtonSound()
+        runningNumber += "."
     }
     
     func processOperation(op: Operation) {
@@ -128,29 +134,29 @@ class ViewController: UIViewController {
                 runningNumber = ""
                 
                 if currentOperator == Operation.Multiply {
-                    result = "\(Int(leftValue)! * Int(rigthValue)!)"
+                    result = "\(Double(leftValue)! * Double(rigthValue)!)"
                 } else if currentOperator == Operation.Divide {
                     result = "\(Double(leftValue)! / Double(rigthValue)!)"
                 } else if currentOperator == Operation.Subtract {
-                    result = "\(Int(leftValue)! - Int(rigthValue)!)"
+                    result = "\(Double(leftValue)! - Double(rigthValue)!)"
                 } else if currentOperator == Operation.Addition {
-                    result = "\(Int(leftValue)! + Int(rigthValue)!)"
-                } else if currentOperator == Operation.Comma {
-                    result = "\(Double(rigthValue)!)"
+                    result = "\(Double(leftValue)! + Double(rigthValue)!)"
+                } else if currentOperator == Operation.Opposite {
+                    result = "\(Double(leftValue)! * Double("-1")!)"
+                } else if currentOperator == Operation.Procentage {
+                    result = "\((Double(leftValue)! / 100))"
                 }
+                
                 
             } else if runningNumber == "" {
                 if currentOperator == Operation.Opposite {
-                    result = "\(Int(leftValue)! * Int("-1")!)"
-                } else if currentOperator == Operation.Equal {
-                    result = "\(Int(leftValue)!)"
+                    result = "\(Double(leftValue)! * Double("-1")!)"
                 } else if currentOperator == Operation.Procentage {
                     result = "\((Double(leftValue)! / 100))"
                 }
             }
             
             leftValue = result
-            result = ""
             updateSumLabel(leftValue)
             currentOperator = op
             
@@ -184,7 +190,11 @@ class ViewController: UIViewController {
     
     func zeroUpdateSumLabel() {
         updateSumLabel("0")
-        changeACButtonText("AC")
+        if rigthValue != "" && leftValue != "" {
+            changeACButtonText("AC")
+        } else {
+            changeACButtonText("C")
+        }
     }
     
     
