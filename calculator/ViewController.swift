@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         case Equal = "="
         case Comma = ","
         case Empty = "Empty"
+        
     }
     
     @IBOutlet weak var sumLabel: UILabel!
@@ -52,6 +53,7 @@ class ViewController: UIViewController {
     
     override func preferredStatusBarStyle() -> UIStatusBarStyle {
         return .LightContent
+        
     }
     
     @IBAction func numberPressed(btn: UIButton!) {
@@ -104,6 +106,7 @@ class ViewController: UIViewController {
         rigthValue = ""
         currentOperator = Operation.Empty
         zeroUpdateSumLabel()
+        
     }
     
     @IBAction func onDeletePressed(sender: AnyObject) {
@@ -123,6 +126,7 @@ class ViewController: UIViewController {
     @IBAction func onCommaDoubleValuePressed(sender: AnyObject) {
         playButtonSound()
         runningNumber += "."
+        
     }
     
     func processOperation(op: Operation) {
@@ -195,6 +199,7 @@ class ViewController: UIViewController {
         } else {
             changeACButtonText("C")
         }
+        
     }
     
     
